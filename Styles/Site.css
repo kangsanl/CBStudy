@@ -121,6 +121,7 @@ first child of the left and right table columns */
     min-height: 320px;
 }
 
+
 .leftCol
 {
     padding: 6px 0px;
@@ -291,4 +292,14 @@ div.accountInfo
 {
     text-align: right;
     padding-right: 10px;
+}
+
+/* Customized */
+
+.hide {
+    display:none;
+}
+
+.text-center {
+    text-align:center;
 }

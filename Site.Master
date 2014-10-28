@@ -45,9 +45,13 @@
             </div>
 
         </div>
-        <div class="main">
+        <div id="main" class="main">
             <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
         </div>
+        <div id="wait" class="main text-center hide">
+            <b>You are waiting for other users...</b>
+        </div>
+
         <div class="clear">
         </div>
     </div>
