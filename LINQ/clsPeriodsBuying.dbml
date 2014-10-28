@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PeriodsBuying" Class="clsPeriodsBuyingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=CHRIS-PC\SQLEXPRESS;Initial Catalog=PeriodsBuying;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PeriodsBuyingConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TBInfor2" Member="TBInfor2s">
+    <Type Name="TBInfor2">
+      <Column Name="TURN" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="C_K" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="C_N" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="C_P1" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="C_P2" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="C_Y" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="C_V" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="GROUPID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TRIAL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ISLAST" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBSimulation2" Member="TBSimulation2olds">
+    <Type Name="TBSimulation2old">
+      <Column Name="[KEY]" Member="KEY" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TURN" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DECISION" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="RESULTYN" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="RESULT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GROUPID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TRIAL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CONFIDENCE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TIME" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBInfor2_latest" Member="TBInfor2_latests">
+    <Type Name="TBInfor2_latest">
+      <Column Name="TURN" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="C_K" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="C_N1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="C_N2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="C_P1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="C_P2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="C_Y" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="C_V" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GROUPID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TRIAL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ISLAST" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Result" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EX_SET" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBSimulation2" Member="TBSimulation2s">
+    <Type Name="TBSimulation2">
+      <Column Name="[KEY]" Member="KEY" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TURN" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DECISION" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="RESULTYN" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="RESULT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GROUPID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TRIAL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CONFIDENCE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TIME" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EX_SET" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
