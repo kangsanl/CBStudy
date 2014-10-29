@@ -19,6 +19,8 @@
                     return false;
                 }
             });
+
+            getPageStatus();
         });        
     </script>
     

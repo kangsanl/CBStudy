@@ -3,16 +3,27 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CBStudy
 {
+    public class returnJson {
+        public int currentUserNum { get; set; }
+        public bool redirect { get; set; }
+
+        internal string ToJSON()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public partial class Login : System.Web.UI.Page
     {
         // LINQ 사용을 위한 데이터베이스 클래스 선언
         LINQ.clsPeriodsBuyingDataContext db;
-
+        static int count = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             db = new LINQ.clsPeriodsBuyingDataContext();
@@ -20,7 +31,11 @@ namespace CBStudy
             if (Request.QueryString["EX_SET"] != null)// 실험 SET 번호
             {
                 this.hdEX_SET.Text = Request.QueryString["EX_SET"].ToString();
-            } 
+            }
+
+            Login.count++;
+
+            
 
         }
 
@@ -107,6 +122,8 @@ namespace CBStudy
             return ValueType;
         }*/
 
+
+
         protected void Button1_Click(object sender, EventArgs e)
         { 
             // No Decision 사용안함. 2014/10/23
@@ -121,6 +138,29 @@ namespace CBStudy
             //}            
         }
 
+
+        [System.Web.Services.WebMethod]
+        public static string GetPageStatus(string set, string turn, string groupId)
+        {
+
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool redirect = false;
+            if(Login.count == 2){
+                redirect = true;
+                
+            }
+            else
+            {
+                
+                redirect = false;
+            }
+
+            returnJson result = new returnJson { currentUserNum = Login.count, redirect = redirect };
+
+
+            return serializer.Serialize(result);
+        }
 
     }
 }

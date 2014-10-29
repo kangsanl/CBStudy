@@ -7,7 +7,7 @@
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
-    
+    <script src="Scripts/getPageStatus.js" type="text/javascript"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
     <script type="text/javascript">
