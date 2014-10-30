@@ -15,7 +15,8 @@ function getPageStatus() {
     var ex_set = $("#MainContent_hdEX_SET").val();
     var ex_turn = $("MainContent_hdTURN").val();
     var ex_groudId = $("MainContent_hdGROUPID").val();
-
+    $("#main").addClass("hide");
+    $("#wait").removeClass("hide");
     // From Login page
     if (ex_turn === undefined || ex_turn === null) {
         ex_turn = 0;
@@ -31,10 +32,10 @@ function getPageStatus() {
         groupId: ex_groudId
     };
 
-
+    var interval = null;
     var request = function () {
         $.ajax({
-            url: "Login.aspx/GetPageStatus",
+            url: "Decision.aspx/GetPageStatus",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(info),
@@ -46,6 +47,7 @@ function getPageStatus() {
                     //redirect to the next
                     $("#main").removeClass("hide");
                     $("#wait").addClass("hide");
+                    clearInterval(interval);
                 }
                 else {
                     $("#main").addClass("hide");
@@ -57,5 +59,5 @@ function getPageStatus() {
     
 
 
-    setInterval(request, 3000);
+    interval = setInterval(request, 3000);
 }

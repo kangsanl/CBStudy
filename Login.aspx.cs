@@ -9,15 +9,6 @@ using System.Web.UI.WebControls;
 
 namespace CBStudy
 {
-    public class returnJson {
-        public int currentUserNum { get; set; }
-        public bool redirect { get; set; }
-
-        internal string ToJSON()
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     public partial class Login : System.Web.UI.Page
     {
@@ -33,8 +24,8 @@ namespace CBStudy
                 this.hdEX_SET.Text = Request.QueryString["EX_SET"].ToString();
             }
 
-            Login.count++;
 
+            Login.count++;
             
 
         }
@@ -125,17 +116,24 @@ namespace CBStudy
 
 
         protected void Button1_Click(object sender, EventArgs e)
-        { 
+        {
+            //Increse the number of user
+           
+
             // No Decision 사용안함. 2014/10/23
             
             //if(CheckValue(1)==1)
             //{
+
+            
                 Response.Redirect("Decision.aspx?TURN=1" + "&USERID=" + this.txtUSERID.Text + "&EX_SET=" + this.hdEX_SET.Text);
             //}
             //else
             //{
             //    Response.Redirect("NoDecision.aspx?TURN=1" + "&USERID=" + this.txtUSERID.Text + "&EX_SET=" + this.hdEX_SET.Text);
-            //}            
+            //}   
+
+            return;
         }
 
 
@@ -146,9 +144,9 @@ namespace CBStudy
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             bool redirect = false;
-            if(Login.count == 2){
+            if(Login.count > 2){
                 redirect = true;
-                
+                //Response.Redirect("Decision.aspx?TURN=1" + "&USERID=" + "111" + "&EX_SET=" + "1");
             }
             else
             {

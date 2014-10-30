@@ -20,7 +20,7 @@
                 }
             });
 
-            getPageStatus();
+            
         });        
     </script>
     

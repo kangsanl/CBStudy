@@ -2,17 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CBStudy
 {
+    public class returnJson
+    {
+        public int currentUserNum { get; set; }
+        public bool redirect { get; set; }
+
+        internal string ToJSON()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public partial class Decision : System.Web.UI.Page
     {   
         LINQ.clsPeriodsBuyingDataContext db;
 
+        static private int count = 0;
+
+        [System.Web.Services.WebMethod]
+        public static string GetPageStatus(string set, string turn, string groupId)
+        {
+
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool redirect = false;
+            if (count > 2)
+            {
+                redirect = true;
+            }
+            else
+            {
+
+                redirect = false;
+            }
+
+            returnJson result = new returnJson { currentUserNum = count, redirect = redirect };
+
+
+            return serializer.Serialize(result);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            count++;
             db = new LINQ.clsPeriodsBuyingDataContext();
 
             if (Request.QueryString["TURN"] != null)// 순번

@@ -26,6 +26,8 @@
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <script type="text/javascript">
         $(document).ready(function () {
+            getPageStatus();
+
             $("#MainContent_Button2").click(function () {
                 if ($('#MainContent_rbDecision1').is(':checked') == false && $('#MainContent_rbDecision2').is(':checked') == false) {
                     alert('Please choose the option.');
