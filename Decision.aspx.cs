@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,26 +24,49 @@ namespace CBStudy
     {   
         LINQ.clsPeriodsBuyingDataContext db;
 
-        static private int count = 0;
+        
+
+        static private Hashtable maxUserNum = new Hashtable(){
+            {0, 3}
+        };
+
+        static Hashtable currentUserNum = new Hashtable();
+
 
         [System.Web.Services.WebMethod]
-        public static string GetPageStatus(string set, string turn, string groupId)
+        public static string GetPageStatus(string set, string turn)
         {
 
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             bool redirect = false;
-            if (count > 2)
-            {
-                redirect = true;
-            }
-            else
-            {
+            int turnNum = Int32.Parse(turn);
+            int setNum = Int32.Parse(set);
+            returnJson result = null;
 
-                redirect = false;
+            if (maxUserNum.ContainsKey(setNum) && currentUserNum.ContainsKey(turnNum))
+            {
+                if ((int)maxUserNum[setNum] < (int)currentUserNum[turnNum])
+                {
+                    redirect = true;
+                }
+                else
+                {
+
+                    redirect = false;
+                }
+
+                result = new returnJson { currentUserNum = (int)currentUserNum[turnNum], redirect = redirect };
+                
             }
 
-            returnJson result = new returnJson { currentUserNum = count, redirect = redirect };
+            
+
+
+
+
+            
+            
 
 
             return serializer.Serialize(result);
@@ -50,7 +74,10 @@ namespace CBStudy
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            count++;
+
+           
+            
+
             db = new LINQ.clsPeriodsBuyingDataContext();
 
             if (Request.QueryString["TURN"] != null)// 순번
@@ -102,6 +129,16 @@ namespace CBStudy
                 this.rbConfidence3.Visible = false;
                 this.rbConfidence4.Visible = false;
                 this.rbConfidence5.Visible = false;*/
+            }
+
+            //If it is the 1st user
+            if (!currentUserNum.ContainsKey(int.Parse(this.hdTURN.Text)))
+            {
+                currentUserNum[int.Parse(this.hdTURN.Text)] = 1;
+            }
+            else
+            {
+                currentUserNum[int.Parse(this.hdTURN.Text)] = (int)currentUserNum[int.Parse(this.hdTURN.Text)] + 1;
             }
         }
 

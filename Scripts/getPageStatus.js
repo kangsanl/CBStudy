@@ -12,9 +12,9 @@ The server allows if all users are logged in, or if all users are ready/finish t
 */
 
 function getPageStatus() {
-    var ex_set = $("#MainContent_hdEX_SET").val();
-    var ex_turn = $("MainContent_hdTURN").val();
-    var ex_groudId = $("MainContent_hdGROUPID").val();
+    var ex_set = $("#MainContent_lblGroupID").text();
+    var ex_turn = $("#MainContent_lblTrial").text();
+    
     $("#main").addClass("hide");
     $("#wait").removeClass("hide");
     // From Login page
@@ -22,14 +22,10 @@ function getPageStatus() {
         ex_turn = 0;
     }
 
-    if (ex_groudId === undefined || ex_groudId === null) {
-        ex_groudId = 0;
-    }
 
     var info = {
         set: ex_set,
-        turn: ex_turn,
-        groupId: ex_groudId
+        turn: ex_turn
     };
 
     var interval = null;
