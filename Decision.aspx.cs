@@ -9,15 +9,19 @@ using System.Web.UI.WebControls;
 
 namespace CBStudy
 {
+
+    /*
+     *  returnJson
+     *  
+     *  Create JSON string from server to send info to client-side
+     *  memebers
+     *  currentUserNum  :   the current user on the current turn of a session(EX)
+     *  redirect        :   let the client knows if all users are ready to start the current turn
+     */
     public class returnJson
     {
         public int currentUserNum { get; set; }
         public bool redirect { get; set; }
-
-        internal string ToJSON()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public partial class Decision : System.Web.UI.Page
@@ -25,14 +29,31 @@ namespace CBStudy
         LINQ.clsPeriodsBuyingDataContext db;
 
         
-
+        /*
+         *  maxUserNum
+         *  {setNum, maxUserNum}
+         */
         static private Hashtable maxUserNum = new Hashtable(){
-            {0, 3}
+            {1, 3},{2, 3},{3, 3},{4, 3},{5, 3},{6, 3}
         };
 
-        static Hashtable currentUserNum = new Hashtable();
+
+        static Hashtable usersStatus = new Hashtable();
 
 
+
+
+        /*
+         * GetPageStatus
+         * check/respond if the users are ready to play the turn
+         * 
+         * Params
+         * set : the current set
+         * turn : the current turn
+         * 
+         * return
+         * the notification to the client from AJAX with JSON data 
+         */
         [System.Web.Services.WebMethod]
         public static string GetPageStatus(string set, string turn)
         {
@@ -41,12 +62,20 @@ namespace CBStudy
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             bool redirect = false;
             int turnNum = Int32.Parse(turn);
-            int setNum = Int32.Parse(set);
+            int setNum = Int32.Parse(set) + 1;
             returnJson result = null;
+
+
+            if (!usersStatus.ContainsKey(setNum))
+            {
+                usersStatus.Add(setNum, new Hashtable());
+            }
+
+            Hashtable currentUserNum = (Hashtable)usersStatus[setNum];
 
             if (maxUserNum.ContainsKey(setNum) && currentUserNum.ContainsKey(turnNum))
             {
-                if ((int)maxUserNum[setNum] < (int)currentUserNum[turnNum])
+                if ((int)maxUserNum[setNum] <= (int)currentUserNum[turnNum])
                 {
                     redirect = true;
                 }
@@ -59,14 +88,6 @@ namespace CBStudy
                 result = new returnJson { currentUserNum = (int)currentUserNum[turnNum], redirect = redirect };
                 
             }
-
-            
-
-
-
-
-            
-            
 
 
             return serializer.Serialize(result);
@@ -131,6 +152,13 @@ namespace CBStudy
                 this.rbConfidence5.Visible = false;*/
             }
 
+
+
+            if(!usersStatus.ContainsKey(int.Parse(this.hdEX_SET.Text))){
+                usersStatus.Add(int.Parse(this.hdEX_SET.Text), new Hashtable());
+            }
+
+            Hashtable currentUserNum = (Hashtable)usersStatus[int.Parse(this.hdEX_SET.Text)];
             //If it is the 1st user
             if (!currentUserNum.ContainsKey(int.Parse(this.hdTURN.Text)))
             {

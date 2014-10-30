@@ -5,10 +5,8 @@
 getPageStatus
 
 asks server if the user can move to the next session.
-The server allows if all users are logged in, or if all users are ready/finish the current page.
+The server allows if all users are logged in, and if all users are ready for the decision page
 
-
-// turn 0: login page
 */
 
 function getPageStatus() {
