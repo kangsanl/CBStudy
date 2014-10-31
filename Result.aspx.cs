@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -105,8 +106,15 @@ namespace CBStudy
                     this.lblRESULT2.Text = "Not Applicable";
                 }   
             }
+
+            removeUserCount(int.Parse(this.hdEX_SET.Text), int.Parse(this.lblGroupID.Text), int.Parse(this.hdTURN.Text));
         }
 
+        public void removeUserCount(int set, int session, int turn) {
+            Hashtable sessionTable = (Hashtable)Decision.ex_setTable[set];
+            Hashtable turnTable = (Hashtable)sessionTable[session];
+            turnTable[turn] = (int)turnTable[turn] - 1;
+        }
         /// <summary>
         /// information biding by using LINQ query
         /// </summary>
