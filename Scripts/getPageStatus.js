@@ -10,7 +10,8 @@ The server allows if all users are logged in, and if all users are ready for the
 */
 
 function getPageStatus() {
-    var ex_set = $("#MainContent_lblGroupID").text();
+    var ex_set = $("#MainContent_hdEX_SET").val();
+    var ex_session = $("#MainContent_lblGroupID").text();
     var ex_turn = $("#MainContent_lblTrial").text();
     
     $("#main").addClass("hide");
@@ -23,6 +24,7 @@ function getPageStatus() {
 
     var info = {
         set: ex_set,
+        session: ex_session,
         turn: ex_turn
     };
 

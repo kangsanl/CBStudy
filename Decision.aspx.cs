@@ -31,14 +31,19 @@ namespace CBStudy
         
         /*
          *  maxUserNum
-         *  {setNum, maxUserNum}
+         *  {EX_SET id, maxUserNum}
          */
         static private Hashtable maxUserNum = new Hashtable(){
             {1, 3},{2, 3},{3, 3},{4, 3},{5, 3},{6, 3}
         };
 
+        /*
+         * ex_setTable
+         * key  :   EX_SET
+         * value:   Hashtable<SessionId,Hashtable>
+         */
+        static public Hashtable ex_setTable = new Hashtable();
 
-        static Hashtable usersStatus = new Hashtable();
 
 
 
@@ -55,27 +60,25 @@ namespace CBStudy
          * the notification to the client from AJAX with JSON data 
          */
         [System.Web.Services.WebMethod]
-        public static string GetPageStatus(string set, string turn)
+        public static string GetPageStatus(string set, string session, string turn)
         {
 
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             bool redirect = false;
             int turnNum = Int32.Parse(turn);
-            int setNum = Int32.Parse(set) + 1;
+            int ex_setId = Int32.Parse(set);
+            int sessionId = Int32.Parse(session);
             returnJson result = null;
 
 
-            if (!usersStatus.ContainsKey(setNum))
-            {
-                usersStatus.Add(setNum, new Hashtable());
-            }
 
-            Hashtable currentUserNum = (Hashtable)usersStatus[setNum];
+            Hashtable sessionTable = (Hashtable)ex_setTable[ex_setId];
+            Hashtable currentUserNum = (Hashtable)sessionTable[sessionId];
 
-            if (maxUserNum.ContainsKey(setNum) && currentUserNum.ContainsKey(turnNum))
+            if (maxUserNum.ContainsKey(ex_setId) && currentUserNum.ContainsKey(turnNum))
             {
-                if ((int)maxUserNum[setNum] <= (int)currentUserNum[turnNum])
+                if ((int)maxUserNum[ex_setId] <= (int)currentUserNum[turnNum])
                 {
                     redirect = true;
                 }
@@ -154,11 +157,17 @@ namespace CBStudy
 
 
 
-            if(!usersStatus.ContainsKey(int.Parse(this.hdEX_SET.Text))){
-                usersStatus.Add(int.Parse(this.hdEX_SET.Text), new Hashtable());
+            if (!ex_setTable.ContainsKey(int.Parse(this.hdEX_SET.Text)))
+            {
+                ex_setTable.Add(int.Parse(this.hdEX_SET.Text), new Hashtable());
             }
 
-            Hashtable currentUserNum = (Hashtable)usersStatus[int.Parse(this.hdEX_SET.Text)];
+            Hashtable sessionTable = (Hashtable)ex_setTable[int.Parse(this.hdEX_SET.Text)];
+            if(!sessionTable.ContainsKey(int.Parse(this.lblGroupID.Text))){
+                sessionTable.Add(int.Parse(this.lblGroupID.Text), new Hashtable());
+            }
+
+            Hashtable currentUserNum = (Hashtable)sessionTable[int.Parse(this.lblGroupID.Text)];
             //If it is the 1st user
             if (!currentUserNum.ContainsKey(int.Parse(this.hdTURN.Text)))
             {
