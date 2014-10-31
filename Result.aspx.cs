@@ -110,7 +110,7 @@ namespace CBStudy
             removeUserCount(int.Parse(this.hdEX_SET.Text), int.Parse(this.lblGroupID.Text), int.Parse(this.hdTURN.Text));
         }
 
-        public void removeUserCount(int set, int session, int turn) {
+        private void removeUserCount(int set, int session, int turn) {
             Hashtable sessionTable = (Hashtable)Decision.ex_setTable[set];
             Hashtable turnTable = (Hashtable)sessionTable[session];
             turnTable[turn] = (int)turnTable[turn] - 1;

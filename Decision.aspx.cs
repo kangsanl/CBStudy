@@ -155,30 +155,35 @@ namespace CBStudy
                 this.rbConfidence5.Visible = false;*/
             }
 
+            addUserCount(int.Parse(this.hdEX_SET.Text), int.Parse(this.lblGroupID.Text), int.Parse(this.hdTURN.Text));
 
+            
+        }
 
-            if (!ex_setTable.ContainsKey(int.Parse(this.hdEX_SET.Text)))
+        private void addUserCount(int set, int session, int turn) {
+
+            if (!ex_setTable.ContainsKey(set))
             {
-                ex_setTable.Add(int.Parse(this.hdEX_SET.Text), new Hashtable());
+                ex_setTable.Add(set, new Hashtable());
             }
 
-            Hashtable sessionTable = (Hashtable)ex_setTable[int.Parse(this.hdEX_SET.Text)];
-            if(!sessionTable.ContainsKey(int.Parse(this.lblGroupID.Text))){
-                sessionTable.Add(int.Parse(this.lblGroupID.Text), new Hashtable());
+            Hashtable sessionTable = (Hashtable)ex_setTable[set];
+            if (!sessionTable.ContainsKey(int.Parse(this.lblGroupID.Text)))
+            {
+                sessionTable.Add(session, new Hashtable());
             }
 
-            Hashtable currentUserNum = (Hashtable)sessionTable[int.Parse(this.lblGroupID.Text)];
+            Hashtable currentUserNum = (Hashtable)sessionTable[session];
             //If it is the 1st user
-            if (!currentUserNum.ContainsKey(int.Parse(this.hdTURN.Text)))
+            if (!currentUserNum.ContainsKey(turn))
             {
-                currentUserNum[int.Parse(this.hdTURN.Text)] = 1;
+                currentUserNum[turn] = 1;
             }
             else
             {
-                currentUserNum[int.Parse(this.hdTURN.Text)] = (int)currentUserNum[int.Parse(this.hdTURN.Text)] + 1;
+                currentUserNum[turn] = (int)currentUserNum[turn] + 1;
             }
         }
-
         /// <summary>
         /// information biding by using LINQ query
         /// </summary>

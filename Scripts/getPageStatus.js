@@ -55,5 +55,5 @@ function getPageStatus() {
     
 
 
-    interval = setInterval(request, 3000);
+    interval = setInterval(request, 1000);
 }
